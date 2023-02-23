@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUIForm">
+  <grid id="27dc6" binding="rootPanel" default-binding="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="751" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <hspacer id="ae860">
+        <constraints/>
+      </hspacer>
+      <vspacer id="5d97e">
+        <constraints/>
+      </vspacer>
+      <vspacer id="5c783">
+        <constraints/>
+      </vspacer>
+      <grid id="c6e40" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="33035" class="javax.swing.JTextField" binding="filePath">
+            <constraints/>
+            <properties>
+              <editable value="false"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <hspacer id="d6100">
+            <constraints/>
+          </hspacer>
+          <vspacer id="fbe40">
+            <constraints/>
+          </vspacer>
+        </children>
+      </grid>
+      <component id="7db7d" class="javax.swing.JButton" binding="selectButton" default-binding="true">
+        <constraints/>
+        <properties>
+          <text value="Choose File or Folder"/>
+        </properties>
+      </component>
+      <hspacer id="f871c">
+        <constraints/>
+      </hspacer>
+      <component id="ff75e" class="javax.swing.JButton" binding="actionButton">
+        <constraints/>
+        <properties>
+          <text value="Button"/>
+          <visible value="false"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

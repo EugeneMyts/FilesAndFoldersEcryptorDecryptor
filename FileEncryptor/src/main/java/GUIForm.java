@@ -1,0 +1,201 @@
+import net.lingala.zip4j.core.ZipFile;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
+
+public class GUIForm {
+    private JPanel rootPanel;
+    private JTextField filePath;
+    private JButton selectButton;
+    private JButton actionButton;
+    private File selectedFile;
+
+
+    private boolean encryptedFileSelected = false;
+    private String decryptAction = "Decrypt";
+    private String encryptAction = "Encrypt";
+
+
+    public GUIForm() {
+
+        selectButton.addActionListener(new Action() {
+            @Override
+            public Object getValue(String key) {
+                return null;
+            }
+
+            @Override
+            public void putValue(String key, Object value) {
+
+            }
+
+            @Override
+            public void setEnabled(boolean b) {
+
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return false;
+            }
+
+            @Override
+            public void addPropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void removePropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JFileChooser chooser = new JFileChooser();
+                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                chooser.showOpenDialog(rootPanel);
+                selectedFile = chooser.getSelectedFile();
+
+
+                onFileSelect();
+
+
+            }
+        });
+
+
+        actionButton.addActionListener(new Action() {
+            @Override
+            public Object getValue(String key) {
+                return null;
+            }
+
+            @Override
+            public void putValue(String key, Object value) {
+
+            }
+
+            @Override
+            public void setEnabled(boolean b) {
+
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return false;
+            }
+
+            @Override
+            public void addPropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void removePropertyChangeListener(PropertyChangeListener listener) {
+
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedFile == null) {
+                    return;
+                }
+                String password = JOptionPane.showInputDialog("Enter password: ");
+
+                if (password == null || password.length() == 0) {
+                    showWarning("Password is not entered");
+                    return;
+                }
+
+                if (encryptedFileSelected) {
+
+                    decryptFile(password);
+                } else {
+                    encryptFile(password);
+                }
+
+            }
+        });
+
+
+    }
+
+    public void setButtonsEnabled(boolean enabled) {
+
+        selectButton.setEnabled(enabled);
+        actionButton.setEnabled(enabled);
+
+    }
+
+    private void encryptFile(String password) {
+
+        EncryptorThread thread = new EncryptorThread(this);
+        thread.setFile(selectedFile);
+        thread.setPassword(password);
+        thread.start();
+
+    }
+
+    private void decryptFile(String password) {
+
+        DecryptorThread thread = new DecryptorThread(this);
+        thread.setFile(selectedFile);
+        thread.setPassword(password);
+        thread.start();
+
+
+    }
+
+
+    public void showWarning(String message) {
+
+        JOptionPane.showMessageDialog(rootPanel, message);
+
+    }
+
+
+    public void showFinished() {
+        JOptionPane.showMessageDialog(rootPanel, encryptedFileSelected ?
+                "Decrypting is finished" : "Encrypting is finished");
+    }
+
+
+    private void onFileSelect() {
+
+        if (selectedFile == null) {
+            filePath.setText("");
+            actionButton.setVisible(false);
+            return;
+        }
+
+        filePath.setText(selectedFile.getAbsolutePath());
+
+        try {
+
+            ZipFile zipFile = new ZipFile(selectedFile);
+
+            encryptedFileSelected = zipFile.isValidZipFile() && zipFile.isEncrypted();
+
+            actionButton.setText(encryptedFileSelected
+                    ? decryptAction : encryptAction);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        actionButton.setVisible(true);
+
+    }
+
+    public JPanel getRootPanel() {
+        return rootPanel;
+    }
+
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
+}
