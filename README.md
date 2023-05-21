@@ -20,11 +20,11 @@ To use the Files and Folders Encryptor/Decryptor application, follow these steps
 
 1.Clone the repository: git clone https://github.com/EugeneMyts/FilesAndFoldersEcryptorDecryptor.git
 
-2.Install the required dependencies for the application. (Provide any specific instructions or dependencies required by your application, such as libraries, frameworks, or packages.)
+2.Install the required dependencies for the application.
 
-3.Build the project using the provided build tools or commands. (If applicable, provide instructions on how to build the project.)
+3.Build the project using the provided build tools or commands.
 
-4.Run the application by executing the main file or using the provided commands. (If applicable, provide instructions on how to run the application.)
+4.Run the application by executing the main file or using the provided commands.
 
 5.The Files and Folders Encryptor/Decryptor application is now ready to use.
 
